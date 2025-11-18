@@ -10,7 +10,7 @@ export default function Home() {
 
   return (
     <Fragment>
-      {/* <Cursor hoverElement={cursorStyle} /> */}
+      <Cursor hoverElement={cursorStyle} />
 
       <HomeStyled>
         <Boards />

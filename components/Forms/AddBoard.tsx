@@ -37,7 +37,7 @@ const AddBoard = () => {
 
   return (
     <AddBoardCard
-      onMouseEnter={() => setCursorStyle("none")}
+      onMouseEnter={() => setCursorStyle("link")}
       onMouseLeave={() => setCursorStyle("default")}
     >
       {loading ? (
