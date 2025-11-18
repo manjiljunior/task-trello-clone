@@ -41,8 +41,6 @@ const Task = ({ data, boardId }: Props) => {
     transition,
   };
 
-  console.log(isDragging, "hiiiisfasd");
-
   return (
     <TaskStyled
       ref={setNodeRef}
@@ -108,7 +106,10 @@ const TaskStyled = styled.div`
           theme.mode === "dark"
             ? theme.colors.white
             : theme.colors.primaryDark} !important;
-      background-color: ${({ theme }) => theme.mode === 'dark' ? theme.colors.black : theme.colors.primaryLight} !important;
+      background-color: ${({ theme }) =>
+        theme.mode === "dark"
+          ? theme.colors.black
+          : theme.colors.primaryLight} !important;
       transform: rotate(8deg);
     }
 

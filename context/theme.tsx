@@ -21,7 +21,7 @@ const ThemeContext = createContext<ThemeContextValue | null>(null);
 
 export function ThemeProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<ThemeMode>(() => {
-    if (typeof window === "undefined") return "dark";
+    if (typeof window === "undefined") return "light";
 
     const stored = window.localStorage.getItem(STORAGE_KEY) as ThemeMode | null;
 
@@ -29,17 +29,13 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
       return stored;
     }
 
-    const prefersDark = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    ).matches;
-    return prefersDark ? "dark" : "light";
+    return "light";
   });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
-
     window.localStorage.setItem(STORAGE_KEY, mode);
-    document.documentElement.dataset.theme = mode; // <html data-theme="dark" />
+    document.documentElement.dataset.theme = mode;
   }, [mode]);
 
   const toggleMode = useCallback(() => {
