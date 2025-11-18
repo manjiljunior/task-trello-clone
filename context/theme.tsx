@@ -26,21 +26,30 @@ export function ThemeProvider({ children }: { children: ReactNode }) {
     const stored = window.localStorage.getItem(STORAGE_KEY) as ThemeMode | null;
 
     if (stored === "light" || stored === "dark") {
+      document.documentElement.dataset.theme = stored;
       return stored;
     }
 
-    return "light";
+    const prefersDark = window.matchMedia(
+      "(prefers-color-scheme: dark)"
+    ).matches;
+    const systemTheme = prefersDark ? "dark" : "light";
+
+    document.documentElement.dataset.theme = systemTheme;
+    return systemTheme;
   });
 
   useEffect(() => {
     if (typeof window === "undefined") return;
+
     window.localStorage.setItem(STORAGE_KEY, mode);
     document.documentElement.dataset.theme = mode;
   }, [mode]);
 
-  const toggleMode = useCallback(() => {
-    setMode((prev) => (prev === "light" ? "dark" : "light"));
-  }, []);
+  const toggleMode = useCallback(
+    () => setMode((prev) => (prev === "light" ? "dark" : "light")),
+    []
+  );
 
   return (
     <ThemeContext.Provider value={{ mode, toggleMode, setMode }}>
